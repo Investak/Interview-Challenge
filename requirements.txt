@@ -1,2 +1,0 @@
-Django==1.9.4
-django-simple-history==1.8.1
