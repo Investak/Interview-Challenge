@@ -50,8 +50,10 @@ An example of a historical performance graph is provided below - charts should b
 ##FAQs
 
 1. What is a portfolio?
+
 A portfolio is a collection of stocks. So for example if we have a portfolio 1 it may comprise of different stocks such as ['NIFTY', 'GOOGLE', 'APPL', etc.. ].
 
 2. How many portfolios can a customer have?
+
 A customer can have multiple number of portfolios depending upon how many has he locally saved in his account.
 
