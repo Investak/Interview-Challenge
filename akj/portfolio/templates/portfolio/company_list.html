@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% load staticfiles %} {% block content %}
+<!-- Main Content -->
+<main class="container">
+    <section class="row">
+        <section class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+            <table class="table table-hover">
+                {% for company in all_companies %}
+                <tr>
+                    <td>
+                        {{company.symbol}}
+                    </td>
+                    <td>
+                        {{company.name}}
+                    </td>
+                    <td>
+                        {{company.market_name}}
+                    </td>
+                    <td>
+                        {{company.asset_class}}
+                    </td>
+                    <td>
+                        {{company.weight}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+    </section>
+    <div class="col-sm-8 col-sm-offset-2">
+            <ul class="pager list-inline hidden-xs">
+                {% if posts.has_previous %}
+                <li class="previous">
+                    <a href="?page={{ posts.previous_page_number }}">
+                        <i class="fa fa-arrow-circle-left"></i> Privious</a>
+                </li>
+                {% else %}
+                <li class="previous disabled">
+                    <a href="#">
+                        <i class="fa fa-arrow-circle-left"></i> Privious </a>
+                </li>
+                {% endif %}
+                <li class="text-center page-num">
+                        Page {{ all_companies.number }} Of {{ all_companies.paginator.num_pages }}
+                </li>
+                {% if posts.has_next %}
+                <li class="next hidden-xs">
+                    <a href="?page={{ posts.next_page_number }}">
+                        Next <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="next disabled">
+                    <a href="#">
+                        Next <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+</main>
+<br>
+<hr> {% endblock content %}

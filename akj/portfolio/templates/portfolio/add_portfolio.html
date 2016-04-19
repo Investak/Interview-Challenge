@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% load i18n %} {% load crispy_forms_tags %} {% block content %}
+<main class="container">
+    <section class="row">
+        <section class="col-lg-6 col-lg-offset-2">
+            <form enctype='multipart/form-data' action="." method="POST" novalidate>
+                {% csrf_token %}
+                {{ form|crispy}}
+                <br>
+                <br>
+                <button class="btn btn-default" type="submit" name="button">Submit</button>
+            </form>
+        </section>
+    </section>
+</main>
+{% endblock %}
