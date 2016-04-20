@@ -1,8 +1,12 @@
+import json
+
 from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 from django.utils import timezone
+
+from yahoo_finance import Share
 
 from .models import *
 from .forms import *
@@ -58,6 +62,8 @@ def profile(request):
 
 def portfolio_details(request, name):
     users_portfolio = get_object_or_404(Portfolio, name=name)
+    for company in users_portfolio.companies.all():
+        print(company)
     c = {'users_portfolio': users_portfolio}
     return render(request, 'portfolio/portfolio_details.html', c)
 

@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^accounts/profile/$', profile, name='profile'),
     url(r'^portfolio/add/$', add_portfolio, name='add_portfolio'),
     url(r'^portfolio/(?P<name>[-\w\d ]+)$', portfolio_details, name='portfolio_details'),
+    # url(regex=r'^graph/$', view=make_graph, name='make_graph'),
     url(r'^thankyou/', thankyou, name='thankyou'),
 ]

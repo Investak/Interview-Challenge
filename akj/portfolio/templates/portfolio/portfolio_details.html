@@ -1,46 +1,62 @@
-{% extends "base.html" %} {% load i18n %} {% load crispy_forms_tags %} {% block content %}
-<section class="container-fluid">
+{% extends "base.html" %} {% load i18n %} {% load crispy_forms_tags %} {% block css %}
+
+<style media="screen">
+    h5 {
+        cursor: pointer;
+    }
+
+    aside {
+        height: 30vw;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+</style>
+{% endblock css %} {% block content %}
+<section class="container">
     <section class="row">
-        <section class="col-md-10 col-md-offset-1">
-            <h2 class="text-center">
+        <section class="col-md-12">
+            <header>
+                <h2 class="text-center">
                     {{users_portfolio.name}}
                 </h2>
+            </header>
 
-            <canvas id="myChart" width="500" height="500"></canvas>
+            <aside class="col-md-1">
+                {% for company in users_portfolio.companies.all %}
+                <h5>{{company}}</h5> {% endfor %}
+            </aside>
 
-            </div>
+            <section class="col-md-10 col-md-push-1">
+                <br>
+                <div id="curve_chart" style="width: 900px; height: 500px"></div>
+            </section>
         </section>
     </section>
 </section>
-{% endblock %}
-
-
-{% block js %}
-
+{% endblock %} {% block js %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-    var data = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        }, {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86, 27, 90]
-        }]
+google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Year', 'Sales', 'Expenses'],
+      ['2004',  1000,      400],
+      ['2005',  1170,      460],
+      ['2006',  660,       1120],
+      ['2007',  1030,      540]
+    ]);
+
+    var options = {
+      title: 'Company Performance',
+      curveType: 'function',
+      legend: { position: 'bottom' }
     };
-    var ctx = document.getElementById("myChart").getContext("2d");
-    var myLineChart = new Chart(ctx).Line(data);
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+  }
 </script>
 {% endblock js %}

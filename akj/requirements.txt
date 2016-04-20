@@ -4,6 +4,7 @@ Django==1.9.5
 django-allauth==0.25.2
 django-crispy-forms==1.6.0
 django-phonenumber-field==1.1.0
+django-registration-redux==1.4
 djangorestframework==3.3.3
 oauthlib==1.0.3
 phonenumberslite==7.3.0
