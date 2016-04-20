@@ -23,7 +23,7 @@ Requirements:
 
 •	Once logged in he should be able to select from a stocks list (provided in file [stocks list file](https://github.com/Investak/Interview-Challenge/blob/master/Stock%20List.xlsx))
 
-•	In the ideal scenario, backend algorithm will return some weights (use some dummy weights for now) for this portfolio. You are encouraged to build your own heuristics for weights. In the simplst case, you can even assume an equal distribution.
+•	In the ideal scenario, backend algorithm will return some weights (use some dummy weights for now) for this portfolio. You are encouraged to build your own heuristics for weights. In the simplest case, you can even assume an equal distribution.
 
 •	Historical performance charts of the chosen portfolio vs individual stocks will be displayed in a time series (user selected time range) which will change depending upon the portfolio user selects.
 An example of a historical performance graph is provided below - charts should be highly intuitive and interactive making the user experience a smooth one. 
@@ -40,7 +40,7 @@ An example of a historical performance graph is provided below - charts should b
 3.	PostgreSQL
 
 ##Judging Criteria
-•	What you have produced will determine your final outcome. If you like using the app, we will probably love it too, and vice versa. Please do note that the requirements above are not set in stone. If there is a featurw you hate or want, please feel free to take a decision on your own. But we are looking for a kick-ass mini product. Please don't send us something even you can't use. 
+•	What you have produced will determine your final outcome. If you like using the app, we will probably love it too, and vice versa. Please do note that the requirements above are not set in stone. If there is a feature you hate or want, please feel free to take a decision on your own. But we are looking for a kick-ass mini product. Please don't send us something even you can't use. 
 
 •	Creativity. the challenge is intentionally left open ended. These are the kinds of open ended challenges you will face on the job too :)
 
