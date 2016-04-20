@@ -7,6 +7,7 @@ now install all the Python packages needed:
 
 command : "pip install -r requirements.txt"
 
+
 Now move to the directory where manage.py resides.run the following commands.
 
 "python manage.py makemigerations"
@@ -16,6 +17,7 @@ Now move to the directory where manage.py resides.run the following commands.
 "python manage.py createsuperuser"
 
 "python manage.py runserver"
+
 
 
 
