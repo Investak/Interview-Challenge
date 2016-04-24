@@ -122,8 +122,10 @@ def edit_portfolio(request, name):
             portfolio = form.save(commit=False)
             portfolio.user = request.user
             portfolio.save()
+            for company in form.cleaned_data['companies']:
+                portfolio.companies.add(company)
             return redirect('/')
     else:
         form = PortfolioForm(instance=portfolio)
     return render(request, 'portfolio/edit_portfolio.html',
-                  {'form': form,})
+                  {'form': form, 'pname': name})
