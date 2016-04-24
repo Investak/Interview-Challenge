@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block jumbotron %}
+		<div class="jumbotron">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-sm-6">
+			        	<iframe width="560" height="315" src="https://www.youtube.com/embed/LI8yHGbGgbA" frameborder="0" allowfullscreen></iframe> 
+			        </div>
+		  		
+			  		<div class="col-sm-6" >
+						  <h1>About Us</h1>
+				          <p> The AKJ Group is a fund management company which started in 2015 with the aim of making investing hassle free for our clients. It is the first and the fastest growing automated investment service in Singapore.</p>
+			        </div>
+			        	
+			    </div>
+		    </div>
+		</div>
+{% endblock %}
+
+
+{% block content %}
+	<h1 class="text-align-center"><b>Powered By:</b></h1>
+	<br>
+	<div class="row padding-left-right">
+
+		<div class="col-sm-4">
+		<p class="lead text-align-center"><b>Font Awesome</p>
+		<a href="https://fortawesome.github.io/Font-Awesome/"><img src="{% static 'img/fontawesome.jpg' %}" class="img-responsive"/></a>
+		</div>
+  		
+  		<div class="col-sm-4">
+		<p class="lead text-align-center"><b>Bootstrap</p>
+		<a href="http://getbootstrap.com/"><img src="{% static 'img/bootstrap.png' %}" class="img-responsive"/></a>
+		</div>
+
+		<div class="col-sm-4">
+		<p class="lead text-align-center"><b>Django</p>
+		<a href="https://www.djangoproject.com/"><img src="{% static 'img/django.png' %}" class="img-responsive"/></a>
+		</div>
+	
+	</div>
+	<br>
+	<br>
+{% endblock %}
