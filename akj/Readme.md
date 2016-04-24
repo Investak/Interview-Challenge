@@ -42,22 +42,13 @@ command : "pip install -r requirements.txt"
 
 Now move to the directory where manage.py resides.run the following commands.
 
-<<<<<<< HEAD
 command : "python manage.py makemigerations"
+
 command : "python manage.py migerate"
+
 command : "python manage.py createsuperuser"
+
 command : "python manage.py runserver"
-=======
-"python manage.py makemigerations"
-
-"python manage.py migerate"
-
-"python manage.py createsuperuser"
-
-"python manage.py runserver"
->>>>>>> 6d7fedace88e3648fa9be8f77fc676e777141990
-
-
 
 
 Python packages:
@@ -75,8 +66,6 @@ django-crispy-forms==1.6.0
 django-phonenumber-field==1.1.0
 
 django-registration-redux==1.4
-
-djangorestframework==3.3.3
 
 oauthlib==1.0.3
 
