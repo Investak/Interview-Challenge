@@ -1,0 +1,425 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="text-align-center"><b>VisualOne</b></h2>
+        </div>
+    </div>
+    <br>
+
+    <div>
+	   <div class="row">
+		  <div class="col-sm-8 col-sm-offset-1">
+            <h3><b>Stock List</b></h3>
+			<button class='btn btn-primary' onclick="priceline()">Priceline Group</button>
+			<button class='btn btn-primary' onclick="alphabet()">Alphabet Inc.</button>
+			<button class='btn btn-primary' onclick="amazon()">Amazon</button>
+			<button class='btn btn-primary' onclick="regeneron()">Regeneron Phar.</button><br><br>
+
+			<button class='btn btn-primary' onclick="apple()">Apple Inc.</button>
+			<button class='btn btn-primary' onclick="tesla()">Tesla Motors</button>
+			<button class='btn btn-primary' onclick="biogen()">Biogen</button>
+			<button class='btn btn-primary' onclick="baidu()">Baidu</button>
+			<button class='btn btn-primary' onclick="illumina()">Illumina</button>
+			<button class='btn btn-primary' onclick="celgene()">Celgene Corp.</button>
+			<button class='btn btn-primary' onclick="facebook()">Facebook</button><br><br>
+
+			<button class='btn btn-primary' onclick="twitter()">Twitter</button>
+			<button class='btn btn-primary' onclick="yahoo()">Yahoo</button>
+			<button class='btn btn-primary' onclick="vodafone()">Vodafone Group</button>
+			<button class='btn btn-primary' onclick="intel()">Intel Corp.</button>
+			<button class='btn btn-primary' onclick="paypal()">Paypal</button>
+			<button class='btn btn-primary' onclick="texas()">Texas Instruments</button>
+			<button class='btn btn-primary' onclick="ea()">Electronic Arts</button><br><br>
+
+            <p><a class="btn btn-lg btn-danger" href="{% url 'visualiser' %}" role="button" >RESET &raquo;</a></p>
+            <br><br>
+		</div>
+			<p><b>Legends:</b></p>
+			<div class="col-sm-3"><div id="legendDiv" ></div></div>
+	   </div>
+    </div>
+
+<section class="container">
+    <section class="row">
+        <section class="col-sm-12">
+            <canvas class = "container" id="myChart" width="500" height="250"></canvas>
+        </section>
+    </section>
+</section>
+
+
+
+<script type="text/javascript">
+  
+  //Creating 6 datasets for 6 stock comparision.
+  
+  var data = {
+      
+       	labels: [],
+        datasets: [
+        {
+            label: "Blue: ", 
+            //fillColor: "rgba(220,220,220,0)"
+            fillColor: "rgba(0,0,255,0.2)",
+            strokeColor: "rgba(0,0,255,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: []
+        }, 
+        {
+            label: "Red: ", 
+            fillColor: "rgba(255,0,0,0.2)",
+            strokeColor: "rgba(255,0,0,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: []
+        },
+        {
+            label: "Green: ", 
+            fillColor: "rgba(0,255,0,0.2)",
+            strokeColor: "rgba(0,255,0,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: []
+        }, 
+        {
+            label: "Orange: ", 
+            fillColor: "rgba(255,165,0,0.2)",
+            strokeColor: "rgba(255,165,0,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: []
+        }, 
+        {
+            label: "Yellow: ", 
+            fillColor: "rgba(255,255,0,0.2)",
+            strokeColor: "rgba(255,255,0,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: []
+        }, 
+        {
+            label: "Violet: ",
+            fillColor: "rgba(102,0,102,0.2)",
+            strokeColor: "rgba(102,0,102,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: []
+        }
+        ]
+    };
+
+    var k;
+    var c;
+    var dataset_count = -1;
+    var legend_color;
+
+    //Function for each click on the buttons to populate graph.
+    //I am not proud of this part, but i had no other choice.
+    //Its not reusable. Need to find an alternative to get data from database to generate graph.
+
+    function facebook() {
+    	k = 0;
+    	dataset_count++;
+    	legend_color = data.datasets[dataset_count].label;
+    	{% for i in data_facebook %}
+		    c = "{{i.date}} ";
+		    data.datasets[dataset_count].data[k]={{i.close}};
+		    data.labels[k]=String(c);
+		    k++;
+    	{% endfor %}
+    	data.datasets[dataset_count].label = legend_color + "Facebook" ;
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myLineChart = new Chart(ctx).Line(data);
+        document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+    }
+
+    function amazon() {
+    	k = 0;
+    	dataset_count++;
+    	legend_color = data.datasets[dataset_count].label;
+    	{% for i in data_amazon %}
+		    c = "{{i.date}} ";
+		    data.datasets[dataset_count].data[k]={{i.close}};
+		    data.labels[k]=String(c);
+	    	k++;
+    	{% endfor %}
+    	data.datasets[dataset_count].label = legend_color +  "Amazon";
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myLineChart = new Chart(ctx).Line(data);
+        document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+    }
+
+
+    function twitter() {
+    	k = 0;
+    	dataset_count++;
+    	legend_color = data.datasets[dataset_count].label;
+    	{% for i in data_twitter %}
+		    c = "{{i.date}} ";
+		    data.datasets[dataset_count].data[k]={{i.close}};
+		    data.labels[k]=String(c);
+	    k++;
+    	{% endfor %}
+    	data.datasets[dataset_count].label = legend_color +  "Twitter";
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myLineChart = new Chart(ctx).Line(data);
+        document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+    }
+
+    function yahoo() {
+    	k = 0;
+    	dataset_count++;
+    	legend_color = data.datasets[dataset_count].label;
+    	{% for i in data_yahoo %}
+		    c = "{{i.date}} ";
+		    data.datasets[dataset_count].data[k]={{i.close}};
+		    data.labels[k]=String(c);
+	    k++;
+    	{% endfor %}
+    	data.datasets[dataset_count].label = legend_color +  "Yahoo";
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myLineChart = new Chart(ctx).Line(data);
+        document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+    }
+
+	function apple() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_apple %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Apple";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function priceline() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_priceline %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Priceline";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function alphabet() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_alphabet %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Alphabet";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function regeneron() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_regeneron %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Regenron";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function tesla() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_tesla %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Tesla";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function biogen() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_biogen %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Biogen";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function baidu() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_baidu %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Baidu";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function illumina() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_illumina %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Illumina";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function celgene() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_celgene %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Celgene";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function vodafone() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_vodafone %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Vodafone";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function intel() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_intel %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Intel";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function paypal() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_paypal %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Paypal";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function texas() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_texas %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Texas";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+	function ea() {
+    k = 0;
+    dataset_count++;
+    legend_color = data.datasets[dataset_count].label;
+    {% for i in data_apple %}
+	    c = "{{i.date}} ";
+	    data.datasets[dataset_count].data[k]={{i.close}};
+	    data.labels[k]=String(c);
+	    k++;
+    {% endfor %}
+    data.datasets[dataset_count].label = legend_color +  "Ea";
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+	}
+
+</script>
+{% endblock %}

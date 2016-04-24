@@ -1,0 +1,7 @@
+http://finance.yahoo.com/q/hp?s=GE&a=03&b=1&c=2016&d=03&e=21&f=2016&g=d
+
+go to this site and generate data of GE from date specified.
+
+
+http://ichart.finance.yahoo.com/table.csv?s=AAPL&c=1962
+edit this link accordingly to get APPLE's data from date specified to xls format.
