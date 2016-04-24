@@ -110,5 +110,5 @@ def plotgraph(request, name, duration):
         sharedata.append([data['Date'],data['Open']])
 
 
-    pprint(sharedata)
+    # pprint(sharedata)
     return HttpResponse(json.dumps(sharedata), content_type='application/json')

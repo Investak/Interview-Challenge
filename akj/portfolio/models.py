@@ -13,8 +13,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 @python_2_unicode_compatible
 class Company(models.Model):
-    symbol = models.CharField('Symbol', max_length=25)
-    name = models.CharField('Name', max_length=150)
+    symbol = models.CharField('Symbol', max_length=125)
+    name = models.CharField('Name', max_length=250)
     market_name = models.CharField('Market Name', max_length=40, blank=True, null=True)
     asset_class = models.CharField('Asset class', max_length=40, blank=True, null=True)
     weight = models.PositiveSmallIntegerField('Weight')
