@@ -22,6 +22,11 @@
             <header class="row">
                 <h2 id="portfolio" class="text-center">
                     {{users_portfolio.name}}
+                    <span>
+                        <a href="{% url 'edit_portfolio' name=users_portfolio.name %}">
+                            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                        </a>
+                    </span>
                 </h2>
                 <div class="col-md-4 col-md-push-8">
                     <form id="myform" action="" method="post">

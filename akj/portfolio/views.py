@@ -112,3 +112,18 @@ def plotgraph(request, name, duration):
 
     # pprint(sharedata)
     return HttpResponse(json.dumps(sharedata), content_type='application/json')
+
+
+def edit_portfolio(request, name):
+    portfolio = get_object_or_404(Portfolio, name=name)
+    if request.method == "POST":
+        form = PortfolioForm(request.POST, instance=portfolio)
+        if form.is_valid():
+            portfolio = form.save(commit=False)
+            portfolio.user = request.user
+            portfolio.save()
+            return redirect('/')
+    else:
+        form = PortfolioForm(instance=portfolio)
+    return render(request, 'portfolio/edit_portfolio.html',
+                  {'form': form,})
