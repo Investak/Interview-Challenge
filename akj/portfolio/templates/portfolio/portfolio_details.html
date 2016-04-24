@@ -10,25 +10,37 @@
         overflow-x: hidden;
         overflow-y: scroll;
     }
+
+    .selected{
+    background: rgb(135, 226, 29);
+}
 </style>
 {% endblock css %} {% block content %}
-<section class="container">
+<section class="container-fluid">
     <section class="row">
         <section class="col-md-12">
-            <header>
-                <h2 class="text-center">
+            <header class="row">
+                <h2 id="portfolio" class="text-center">
                     {{users_portfolio.name}}
                 </h2>
+                <div class="col-md-4 col-md-push-8">
+                    <form id="myform" action="" method="post">
+                        <input type="radio" name="duration" value="1Month">1 Month &nbsp;
+                        <input type="radio" name="duration" value="3Month">3 Month &nbsp;
+                        <input type="radio" name="duration" value="6Month">6 Month &nbsp;
+                        <input type="radio" name="duration" value="1Year">1 Year &nbsp;
+                    </form>
+                </div>
             </header>
 
-            <aside class="col-md-1">
+            <aside class="col-md-1 selectline">
                 {% for company in users_portfolio.companies.all %}
                 <h5>{{company}}</h5> {% endfor %}
             </aside>
 
-            <section class="col-md-10 col-md-push-1">
+            <section class="col-md-11">
                 <br>
-                <div id="curve_chart" style="width: 900px; height: 500px"></div>
+                <div id="linechart_material" style="width: 100%; height: 550px"></div>
             </section>
         </section>
     </section>
@@ -36,27 +48,135 @@
 {% endblock %} {% block js %}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {
+        'packages': ['line']
+    });
 
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales', 'Expenses'],
-      ['2004',  1000,      400],
-      ['2005',  1170,      460],
-      ['2006',  660,       1120],
-      ['2007',  1030,      540]
-    ]);
+    function drawChart(sharedata) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        for (var i = 1; i < sharedata[0].length; i++) {
+            console.log(sharedata[0][i]);
+            data.addColumn('number', sharedata[0][i]);
+        }
 
-    var options = {
-      title: 'Company Performance',
-      curveType: 'function',
-      legend: { position: 'bottom' }
-    };
+        console.log(JSON.stringify(sharedata));
+        data.addRows(sharedata.slice(1, sharedata.length));
 
-    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-    chart.draw(data, options);
-  }
+        var options = {
+            chart: {
+                title: 'Company Performance',
+                subtitle: 'Graph Of Stock Values'
+            },
+            vAxis: {
+                format: 'decimal'
+            },
+            width: 1200,
+            height: 500
+        };
+
+        var chart = new google.charts.Line(document.getElementById('linechart_material'));
+
+        chart.draw(data, options);
+    }
+
+    $(document).ready(function() {
+        $("input[value='1Month']").prop("checked", true);
+        $('aside h5:first').addClass('selected');
+
+        name = $.trim($('.selected').text());
+        duration = $('input[name=duration]:checked', '#myform').val();
+
+        $.ajax({
+                url: 'http://127.0.0.1:8000/graph/' + name + '/' + duration + '/',
+                type: 'GET',
+                dataType: "json",
+            })
+            .done(function(data) {
+                for (var i = 1; i < data.length; i++) {
+                    data[i][0] = new Date(data[i][0]);
+                    for (var j = 1; j < data[i].length; j++) {
+                        data[i][j] = parseFloat(data[i][1]);
+                    }
+                }
+                google.charts.setOnLoadCallback(drawChart(data));
+
+                console.log(JSON.stringify(data));
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+
+
+    });
+
+    $('.selectline > h5').click(function() {
+        var t = $(this);
+        if (t.hasClass('selected')) {
+            t.removeClass('selected');
+        } else {
+            t.parent().children('h5').removeClass('selected');
+            $(this).addClass('selected');
+        }
+        name = $.trim($('.selected').text());
+        duration = $('input[name=duration]:checked', '#myform').val();
+
+        $.ajax({
+                url: 'http://127.0.0.1:8000/graph/' + name + '/' + duration + '/',
+                type: 'GET',
+                dataType: "json",
+            })
+            .done(function(data) {
+                for (var i = 1; i < data.length; i++) {
+                    data[i][0] = new Date(data[i][0]);
+                    for (var j = 1; j < data[i].length; j++) {
+                        data[i][j] = parseFloat(data[i][1]);
+                    }
+                }
+                google.charts.setOnLoadCallback(drawChart(data));
+
+                console.log(JSON.stringify(data));
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+    });
+
+
+    $('#myform input').on('change', function(event) {
+        /* Act on the event */
+        name = $.trim($('.selected').text());
+        duration = $('input[name=duration]:checked', '#myform').val();
+
+        $.ajax({
+                url: 'http://127.0.0.1:8000/graph/' + name + '/' + duration + '/',
+                type: 'GET',
+                dataType: "json",
+            })
+            .done(function(data) {
+                for (var i = 1; i < data.length; i++) {
+                    data[i][0] = new Date(data[i][0]);
+                    for (var j = 1; j < data[i].length; j++) {
+                        data[i][j] = parseFloat(data[i][1]);
+                    }
+                }
+                google.charts.setOnLoadCallback(drawChart(data));
+
+                console.log(JSON.stringify(data));
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+    });
 </script>
 {% endblock js %}

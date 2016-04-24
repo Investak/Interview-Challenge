@@ -1,8 +1,11 @@
+import datetime
 import json
+from pprint import pprint
 
 from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 from django.utils import timezone
 
@@ -62,8 +65,8 @@ def profile(request):
 
 def portfolio_details(request, name):
     users_portfolio = get_object_or_404(Portfolio, name=name)
-    for company in users_portfolio.companies.all():
-        print(company)
+    # for company in users_portfolio.companies.all():
+    #     print(company)
     c = {'users_portfolio': users_portfolio}
     return render(request, 'portfolio/portfolio_details.html', c)
 
@@ -85,3 +88,27 @@ def add_portfolio(request):
 
 def thankyou(request):
     return render(request, 'portfolio/thankyou.html')
+
+
+def plotgraph(request, name, duration):
+    if duration == '1Month':
+        start = datetime.date.today() - datetime.timedelta(1*365/12)
+    elif duration == '3Month':
+        start = datetime.date.today() - datetime.timedelta(3*365/12)
+    elif duration == '6Month':
+        start = datetime.date.today() - datetime.timedelta(6*365/12)
+    else:
+        start = datetime.date.today() - datetime.timedelta(365)
+
+    end = datetime.date.today()
+
+    sharedata = [['Date', name]]
+
+    c_share = Share(name).get_historical(str(start), str(end))
+
+    for data in c_share:
+        sharedata.append([data['Date'],data['Open']])
+
+
+    pprint(sharedata)
+    return HttpResponse(json.dumps(sharedata), content_type='application/json')

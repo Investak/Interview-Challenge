@@ -28,9 +28,9 @@
     </section>
     <div class="col-sm-8 col-sm-offset-2">
             <ul class="pager list-inline hidden-xs">
-                {% if posts.has_previous %}
+                {% if all_companies.has_previous %}
                 <li class="previous">
-                    <a href="?page={{ posts.previous_page_number }}">
+                    <a href="?page={{ all_companies.previous_page_number }}">
                         <i class="fa fa-arrow-circle-left"></i> Privious</a>
                 </li>
                 {% else %}
@@ -42,9 +42,9 @@
                 <li class="text-center page-num">
                         Page {{ all_companies.number }} Of {{ all_companies.paginator.num_pages }}
                 </li>
-                {% if posts.has_next %}
+                {% if all_companies.has_next %}
                 <li class="next hidden-xs">
-                    <a href="?page={{ posts.next_page_number }}">
+                    <a href="?page={{ all_companies.next_page_number }}">
                         Next <i class="fa fa-arrow-circle-right"></i>
                     </a>
                 </li>
