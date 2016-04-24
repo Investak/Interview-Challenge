@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block head_title %} 
+	Home | {{ block.super }}
+{% endblock %}
+
+{% block jumbotron %}
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+		  		
+			  	<div class="col-sm-6" >
+			  		<h2>VisualOne</h2>
+					<h3><b>-Stock Market Visualiser</b></h3>
+				    <p> Here you can play around with sample stocks to construct a portfolio. What you choose is not reflected in your actual choice on our production system, but you can still get a good sense of what would have happened if you had actually chosen the stocks.</p>
+				    <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register' %}" role="button" >Join Us &raquo;</a></p>
+			    </div>
+			        	
+			    <div class="col-sm-6">
+			        <iframe width="560" height="315" src="https://www.youtube.com/embed/F3QpgXBtDeo" frameborder="0" allowfullscreen></iframe>
+			    </div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block content %}
+<div class="row padding-left-right">
+	<div class="col-sm-4">
+		<p class="lead text-align-center"><b>"When" and "Where"</b><br><br>
+		We guide you all the way through the tedious task of investing at the correct time and place.</p>
+		<img src="{% static 'img/treasure.jpg' %}" class="img-responsive"/>
+	</div>
+		  
+	<div class="col-sm-4">
+		<p class="lead text-align-center"><b>Get "Extra" Edge</b><br><br>
+		With our superior Automated Algorithm and Extensive Graphical Representation.</p>
+		<img src="{% static 'img/edge.jpg' %}" class="img-responsive"/>
+	</div>
+
+	<div class="col-sm-4 pull-right">
+		<p class="lead"><b>{{title}}<b></p>
+		<form method = 'POST' action="" >{% csrf_token %}
+		{{form| crispy}}
+		<input class="btn btn-primary btn-lg" type="submit" value="Sign Up"></input>
+		</form>
+	</div>
+</div>
+{% endblock %}
