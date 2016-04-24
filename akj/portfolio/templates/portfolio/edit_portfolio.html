@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    edit | {{block.super}}
+{% endblock title %}
+
+{% block content %}
+<!-- Main Content -->
+{% if user.is_authenticated %}
+<main class="container">
+    <section class="row">
+        <section class="col-lg-6 col-lg-offset-3">
+            <form class="" action="{% url 'edit_portfolio' name=pname %}" method="POST">{% csrf_token %}
+                {{ form|crispy}}
+                <button class="btn btn-default" type="submit" name="button">Submit</button>
+            </form>
+        </section>
+    </section>
+</main>
+{% else %}
+<br><br>
+<h2 class="text-center">You must login to edit post.</h2>
+<br><br>
+{% endif %}
+{% endblock content %}
