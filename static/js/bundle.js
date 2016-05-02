@@ -119,7 +119,7 @@ var PerfChart = React.createClass({
   },
 
   componentWillReceiveProps: function componentWillReceiveProps(nprops) {
-    if (nprops.cAction.type === 'toggleSeries') this.toggleSeries(nprops.cAction.insBtnData);else if (nprops.cAction.type === 'switchChart') this.switchChart(nprops.instruments);
+    if (nprops.cAction.type === 'toggleSeries') this.toggleSeries(nprops.cAction.insBtnData);else if (nprops.cAction.type === 'switchChart' && nprops.instruments !== undefined) this.switchChart(nprops);
   },
 
   toggleSeries: function toggleSeries(insBtnData) {
@@ -731,12 +731,16 @@ var Instruments = React.createClass({
     this.setState({ pfolios: pfolios });
   },
 
+  onPfolioDeleted: function onPfolioDeleted(ndata) {
+    this.setState({ pfolios: ndata.portfolios });
+  },
+
   getAvailablePfolios: function getAvailablePfolios() {
     var pfolios = this.state.pfolios.map(function (pfolio) {
       return React.createElement(
         'li',
         { className: 'instruments-pfolio-item', id: pfolio.id,
-          key: pfolio.id, onClick: this.addInsToPfolio
+          key: 'i_' + pfolio.id, onClick: this.addInsToPfolio
         },
         pfolio.name
       );
@@ -962,6 +966,7 @@ events.on('PfolioAdder.NEW_PFOLIO', instruments.onNewPfolio);
 // Events coming from Dboard.js
 events.on('CtrlFolio.DELETED_PFOLIO', pfolioList.onPfolioDeleted);
 events.on('CtrlFolio.DELETED_PFOLIO', dboard.onPfolioDeleted);
+events.on('CtrlFolio.DELETED_PFOLIO', instruments.onPfolioDeleted);
 events.on('CtrlFolio.RENAMED_PFOLIO', pfolioList.onPfolioRenamed);
 events.on('CtrlFolio.RENAMED_PFOLIO', dboard.onPfolioRenamed);
 events.on('Dboard.REMOVED_FROM_PFOLIO', pfolioList.afterInsRemovedFromPfolio);
@@ -1342,35 +1347,37 @@ var settings = {
 
   // chart settings
   charts: {
-    defaults: {
-      rangeSelector: { // time-range selector
-        selected: 1
-      },
-      yAxis: {
-        labels: {
-          formatter: function formatter() {
-            return (this.value > 0 ? ' + ' : '') + this.value + '%';
+    defaults: function defaults() {
+      return {
+        rangeSelector: { // time-range selector
+          selected: 1
+        },
+        yAxis: {
+          labels: {
+            formatter: function formatter() {
+              return (this.value > 0 ? ' + ' : '') + this.value + '%';
+            }
+          },
+          plotLines: [{
+            value: 0,
+            width: 2,
+            color: 'silver'
+          }]
+        },
+        plotOptions: {
+          series: {
+            compare: 'percent'
           }
         },
-        plotLines: [{
-          value: 0,
-          width: 2,
-          color: 'silver'
-        }]
-      },
-      plotOptions: {
-        series: {
-          compare: 'percent'
-        }
-      },
-      tooltip: {
-        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-        valueDecimals: 2
-      },
-      credits: {
-        enabled: false
-      },
-      series: [] // defined by each chart instance...
+        tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+          valueDecimals: 2
+        },
+        credits: {
+          enabled: false
+        },
+        series: [] // defined by each chart instance...
+      };
     }
   },
 

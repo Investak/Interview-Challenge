@@ -52,7 +52,7 @@ def portfolio_edit(request):
   p.name = request.POST['portfolio_name']
   p.save()
 
-  return redirect('/portfolio_list')
+  return redirect('./portfolio_list')
 
 @login_required(login_url='/PlaygroundMgmt/ajax_kicked')
 def portfolio_delete(request):
@@ -62,7 +62,7 @@ def portfolio_delete(request):
   portfolio = Portfolio.objects.get(pk = request.POST['portfolio_id'])
   portfolio.delete()
 
-  return redirect('/portfolio_list')
+  return redirect('./portfolio_list')
 
 @login_required(login_url='/PlaygroundMgmt/ajax_kicked')
 def portfolio_add_ins(request):
