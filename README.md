@@ -1,59 +1,57 @@
-#Software Engineer – Backend / Frontend challenge 
-##Welcome
-Welcome to the AKJ technical challenge! If you are someone who is looking to be a part of the next big company, you are here at the right place. You will be a part of a sharp, motivated and world class team working on the most ground breaking technology. 
+INSTALLATION NOTES:
 
-##Basics 
-The rules of this challenge are simple –
+Locally, I have done development on a Mac OS X 10.9.5 using Bitnami Django Stack, which ships with:
+  - Django 1.9.5
+  - Python 2.7.11
+  - Apache 2.4.20
+  - PostgreSQL 9.5.2
 
-•	What you make should satisfy the challenge statement.	
+* The public demo is running in openshift.
+The openshift server was problematic to setup because of its own custom environment, so I based the project structure in these two quickstart projects:
+- https://github.com/openshift/django-example (will provide the basic project setup for a django app in openshift)
+- https://github.com/drivard/openshift-django-postgresql (I only took the definition of database variables in settings.py)
 
-•	Your code should be human readable and beautiful.
+Additionally, the requirements couldn't be installed automatically due to server errors (as described here: http://stackoverflow.com/questions/29883879/openshift-python-pip-install-cffi-fails)
+The only workaround I know so far is to log in with ssh to the openshift app and manually install:
+pip install yahoo-finance==1.2.1
+pip install psycopg2==2.6 
 
-•	We at AKJ, take code organization and application architecture quite seriously.
+MANAGEMENT NOTES:
 
-•	Please complete the code in your own github repository and submit a pull request or submit the link to info.theakjgroup@gmail.com
+The fixtures included in the project provide some basic users with portfolios to view the basic functionalities.
+I created the initial data from development project with:
+python manage.py dumpdata --format=json PlaygroundMgmt > PlaygroundMgmt/fixtures/playground_init_data.json
 
-##The Challenge
-###What You’ll need to build:
-You will need to build a sandbox for our users which lets them play around with sample stocks they might use to construct the portfolio. What they choose is not reflected in their actual choice on our production system, but you should still let them get a good sense of what would have happened had they actually chosen the stocks.
+To run the import command:
+python manage.py import_instruments <csv_file>
 
-Requirements:
-
-•	Portal login functionality – user should be able to login / logout of the interface.
-
-•	Once logged in he should be able to select from a stocks list (provided in file [stocks list file](https://github.com/Investak/Interview-Challenge/blob/master/Stock%20List.xlsx))
-
-•	In the ideal scenario, backend algorithm will return some weights (use some dummy weights for now) for this portfolio. You are encouraged to build your own heuristics for weights. In the simplest case, you can even assume an equal distribution.
-
-•	Historical performance charts of the chosen portfolio vs individual stocks will be displayed in a time series (user selected time range) which will change depending upon the portfolio user selects.
-An example of a historical performance graph is provided below - charts should be highly intuitive and interactive making the user experience a smooth one. 
-
-![Imgur](http://i.imgur.com/r6PcUCP.png?1)
-
-•	Store user history. The user should be able to see his previous selections and also visualize the previously generating graphs/charts for those selections. You can further enhance this feature by comparing the different stocks you looked at.
-
-•	You can get historical data of stocks from Yahoo Finance or other sources on the web. Or you can use a Python module like this one here - https://pypi.python.org/pypi/yahoo-finance
-
-##What you are encouraged to use
-1.	Django
-2.	ReactJS
-3.	PostgreSQL
-
-##Judging Criteria
-•	What you have produced will determine your final outcome. If you like using the app, we will probably love it too, and vice versa. Please do note that the requirements above are not set in stone. If there is a feature you hate or want, please feel free to take a decision on your own. But we are looking for a kick-ass mini product. Please don't send us something even you can't use. 
-
-•	Creativity. the challenge is intentionally left open ended. These are the kinds of open ended challenges you will face on the job too :)
-
-•	Code readability and organization. We can't stress this enough.
+I have added the one provided in the challenge as a csv in the tmp folder,
+so it can be run with:
+python manage.py import_instruments tmp/list.csv
 
 
-##FAQs
+BACKEND TODOs:
+- Improve loading of chart data, (progressive load).
+- define how the weights can be calculated and the control the user has for them.
+- validation in server for valid portfolio names, avoid duplicates
 
-1. What is a portfolio?
 
-A portfolio is a collection of stocks. So for example if we have a portfolio 1 it may comprise of different stocks such as ['NIFTY', 'GOOGLE', 'APPL', etc.. ].
+FRONTEND TODOs:
 
-2. How many portfolios can a customer have?
+- Change all alerts (these were just a quick fix to get the functionality) to react modals, possibly with this 
+- Handle all Error msgs (including offline status)
+- smooth animations and transitions in user interactions
+- Fix for responsive design
+- implement Sass or Less (according to team preference...) to organize css styles better and optimize rules-list
+- add styling to search input text in instruments box
 
-A customer can have multiple number of portfolios depending upon how many has he locally saved in his account.
+VERY BIG TODO!:
+- generate unit tests and e2e tests, I haven't had enough time to create any...
+- cross-browser testing, I've only tested Chrome.
+- mobile design is broken due to several styles, It needs to be adjusted.
 
+NOTES on charting lib:
+before realizing that Highcharts was the preferred option (based on the LinkedIn description of skill requirements),
+I started to make some tests with http://rrag.github.io/react-stockcharts/, which is a much smaller project with no 
+commercial support, nevertheless I leave the link for reference in case someone might be interested, I started to get in
+contact with the author, in general the lib is written with React using ES6 features.

@@ -1,0 +1,24 @@
+{
+  "name": "InvestorPlayground",
+  "authors": [
+    "Alexander Fradiani <a.fradiani@gmail.com>"
+  ],
+  "description": "Prototype for AKJ",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "babel-standalone": "^6.7.4",
+    "jquery": "^2.2.3",
+    "bootstrap": "^3.3.6",
+    "react-loader": "^2.4.0",
+    "eventEmitter": "^4.3.0"
+  }
+}
