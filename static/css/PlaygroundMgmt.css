@@ -1,0 +1,352 @@
+/*!
+ * Start Bootstrap - SB Admin Bootstrap Admin Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+
+body {
+    margin-top: 100px;
+    background-color: #fff;
+}
+
+@media(min-width:768px) {
+    body {
+        margin-top: 50px;
+    }
+}
+
+#wrapper {
+    padding-left: 0;
+}
+
+#page-wrapper {
+    width: 100%;
+    padding: 0;
+    background-color: #fff;
+    margin-top: 70px;
+}
+
+#name {
+    color:#6ABE45;
+}
+
+#side-bar {
+    background-color: #434241;
+}
+
+#fixed-top {
+    background-color: #ffffff;
+    height: 100px;
+}
+
+.navbar-header .navbar-toggle .icon-bar {
+    background-color: #6ABE45;
+}
+
+#logo {
+    width: 95px;
+    height: 95x;
+    padding-left: 15px;
+    margin-top: -8px; 
+}
+
+#guest {
+    margin-top: 25px;
+}
+
+.stock-btn {
+    background-color: #6ABE45;
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+    height: 48px;
+    padding: 15px;
+    cursor: pointer;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    float: left;
+}
+.stock-disabled {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.highlighted {
+
+    cursor:pointer;
+    background-color: #EFF0F1;
+    color:#000;
+}
+
+.btn-xs {
+    margin-bottom: 2px;
+    margin-left: 10px;
+}
+
+#balance {
+    margin-bottom: 20px;
+}
+
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 225px;
+    }
+
+    #page-wrapper {
+        padding: 10px;
+    }
+}
+
+/* Top Navigation */
+
+.top-nav {
+    padding: 0 15px;
+}
+
+.top-nav>li {
+    display: inline-block;
+    float: left;
+}
+
+.top-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    color: #6ABE45;
+    font-size: 20px;
+}
+
+.top-nav>li>a:hover,
+.top-nav>li>a:focus,
+.top-nav>.open>a,
+.top-nav>.open>a:hover,
+.top-nav>.open>a:focus {
+    color: #fff;
+    background-color: #6ABE45;
+}
+
+.top-nav>.open>.dropdown-menu {
+    float: left;
+    position: absolute;
+    margin-top: 0;
+    border: 1px solid rgba(0,0,0,.15);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: #fff;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.top-nav>.open>.dropdown-menu>li>a {
+    white-space: normal;
+}
+
+
+/* Side Navigation */
+
+@media(min-width:768px) {
+    .side-nav {
+        position: fixed;
+        top: 100px;
+        left: 225px;
+        width: 225px;
+        margin-left: -225px;
+        border: none;
+        border-radius: 0;
+        overflow-y: auto;
+        background-color: #222;
+        bottom: 0;
+        overflow-x: hidden;
+        padding-bottom: 40px;
+    }
+
+    .side-nav>li>a {
+        width: 225px;
+    }
+
+    .portfolio_a:hover {
+        outline: none;
+        background-color: #000 !important;
+        color:#fff;
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
+
+.portfolio_ul {
+  padding: 0;
+}
+
+.portfolio_a {
+  display: block;
+  padding: 10px 15px 10px 15px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.portfolio-add-ctrls {
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
+#portfolio-add-btn {
+  color: #000;
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
+.portfolio-add-sign {
+  margin-left: 5px;
+}
+.portfolio-add-input, .portfolio-edit-input {
+  margin-left: 15px;
+  margin-bottom: 15px;
+  height: 34px;
+}
+.portfolio-add-send, .portfolio-add-cancel {
+  float: left;
+  margin-left: 10px;
+}
+
+.CtrlFolio {
+  float: left;
+  width: 40%;
+}
+
+.portfolio-del-dialog {
+  margin: 20px;
+}
+
+@media (min-width: 768px) {
+  .modal-sm {
+    width: 390px;
+  }
+}
+
+#instruments_list {
+
+}
+#instrument_sep {
+  border-top: 1px solid #ccc;
+}
+
+/**
+ * dashboard
+ * controller for editing/deleting portfolio
+ */
+.dboard-pfolio-title {
+  float: left;
+  color: #777;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+
+.dboard-pfolio-btn {
+  margin: 15px 5px;
+}
+
+#perfchart {
+  height: 300px;
+}
+
+.search-handler {
+  position: relative;
+  float: left;
+}
+
+.search-input {
+  width: 300px;
+}
+.search-input > input {
+  width: 300px;
+}
+
+.search-results-block {
+  width: 300px;
+  height: 300px;
+  overflow: scroll; 
+}
+.ins-search-item, .instruments-pfolio-item {
+  height: 38px;
+  background: #FFF;
+  padding-left: 2em;
+  border-bottom: 1px solid #aaa;
+}
+.ins-search-item:hover, .instruments-pfolio-item:hover {
+  background-color: #1489D0;
+  color: #fff;
+  cursor: pointer;
+}
+
+.ins-ctrl {
+  float: left;
+  margin-left: 20px;
+}
+
+.candlechart-cont {
+  margin: 20px;
+  font-weight: bold;
+}
+
+/**
+ * BUSYMSGS for 
+ * loading and server busy operations
+ */
+#instruments-busymsg {
+  width: 300px;
+}
+#portfolio-add-busymsg {
+  width: 100%;
+  padding: 10px;
+}
+#ctrl-pfolio-busymsg {
+  float: left;
+  width: 40%; 
+}
+
+/**
+ * windows styling
+ */
+.w-close-bar {
+  height:40px;
+  background-color: #6ABE45;
+  border-bottom: 2px solid white;
+}
+
+.w-result-chart {
+  height: 400px;
+  background-color: #E8E8E8;
+}
+
+.w-title {
+  float: left;
+  color: white;
+  margin-top: 10px;
+}
+
+.w-close-btn {
+  float: right;
+  margin-right: 15px;
+  margin-top: 10px;
+  color: #fff;
+  text-decoration-line: none;
+}
+
+/**
+ * leftover from loader tests... this must be cleaned-up
+ */
+.loader_container {
+	position: relative;
+	width: 50px;
+	height: 50px;
+}
+.loader {
+	width: 100%;
+	height: 100%;
+}
+.customspinner {
+	position: relative;
+}
