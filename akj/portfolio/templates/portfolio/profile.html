@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    {% if request.user.is_authenticated %}
+    <h3 class="text-center">All Your Portfolios</h3>
+    <br>
+    <ul class="list-unstyled">
+        {% for portfolio in portfolios %}
+          <h2 class="text-center">
+              <a href="{% url 'portfolio_details' name=portfolio.name %}">
+                  {{ portfolio.name|upper }}
+              </a>
+          </h2>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <h3 class="text-center">You must login.</h3>
+        <h4 class="text-center"><a href="/accounts/login">Login Here</a></h4>
+    {% endif %}
+    
+{% endblock %}
